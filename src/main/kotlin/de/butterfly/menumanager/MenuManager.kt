@@ -14,7 +14,7 @@ abstract class MenuManager(playerMenu: PlayerMenuUtility?) : InventoryHolder {
 
     protected open var playerMenuUtility: PlayerMenuUtility? = null
     protected var inventory: Inventory? = null
-    protected val FILLER_GLASS: ItemStack = createFillerItem()
+    protected val FILLER_GLASS: ItemStack = createFillerItem(Material.WHITE_STAINED_GLASS)
 
 
     init {
@@ -78,8 +78,8 @@ abstract class MenuManager(playerMenu: PlayerMenuUtility?) : InventoryHolder {
      * @param lore Lore for the item
      * @return Configured ItemStack
      */
-    protected fun createFillerItem(): ItemStack {
-        return ItemBuilder(Material.GRAY_STAINED_GLASS_PANE)
+    protected fun createFillerItem(material: Material): ItemStack {
+        return ItemBuilder(material)
             .setDisplayName(Component.text(" "))
             .build()
     }
