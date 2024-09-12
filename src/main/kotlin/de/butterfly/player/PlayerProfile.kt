@@ -15,6 +15,7 @@ import java.util.*
  * @property inventory A list of items currently held by the player.
  * @property effects A list of status effects currently affecting the player.
  */
+
 @Serializable
 data class PlayerProfile(val playerid: UUID,
                          val health: Double,
@@ -22,7 +23,8 @@ data class PlayerProfile(val playerid: UUID,
                          val level: Int,
                          val xp: Int,
                          val inventory :List<String>,
-                         val effects :List<String>)
+                         val effects :List<String>,
+                          val skills :List<String>)
 
 
 

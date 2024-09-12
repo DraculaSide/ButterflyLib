@@ -19,6 +19,9 @@ repositories {
 dependencies {
     compileOnly("io.papermc.paper:paper-api:1.21.1-R0.1-SNAPSHOT")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.1")
+    implementation("org.jetbrains.kotlin:kotlin-reflect:1.8.21")
+
 }
 
 val targetJavaVersion = 21

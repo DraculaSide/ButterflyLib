@@ -6,6 +6,7 @@ class Core : JavaPlugin() {
 
     override fun onEnable() {
         // Plugin startup logic
+
     }
 
     override fun onDisable() {

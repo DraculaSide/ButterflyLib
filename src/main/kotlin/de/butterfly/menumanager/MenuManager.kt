@@ -1,6 +1,7 @@
-package de.butterfly.butterflyApi.menumanager
+package de.butterfly.menumanager
 
-import de.butterfly.butterflyApi.items.ItemBuilder
+
+import de.butterfly.items.ItemBuilder
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.event.inventory.InventoryClickEvent
@@ -62,7 +63,7 @@ abstract class MenuManager(playerMenu: PlayerMenuUtility?) : InventoryHolder {
     fun setFillerMaterial(material: Material) {
         requireNotNull(material) { "Material must not be null" }
 
-        val item = ItemBuilder(material).setDisplayName(Component.empty().toString()).build()
+        val item = ItemBuilder(material).setDisplayName(Component.text(" ")).build()
         for (i in 0 until slots) {
             if (inventory!!.getItem(i) == null) {
                 inventory!!.setItem(i, item)
@@ -79,7 +80,7 @@ abstract class MenuManager(playerMenu: PlayerMenuUtility?) : InventoryHolder {
      */
     protected fun createFillerItem(): ItemStack {
         return ItemBuilder(Material.GRAY_STAINED_GLASS_PANE)
-            .setDisplayName(Component.text(" ").toString())
+            .setDisplayName(Component.text(" "))
             .build()
     }
 

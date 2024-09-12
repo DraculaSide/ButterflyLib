@@ -1,4 +1,4 @@
-package de.butterfly.butterflyApi.menumanager
+package de.butterfly.menumanager
 
 import org.bukkit.entity.Player
 import java.util.*

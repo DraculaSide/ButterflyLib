@@ -1,8 +1,8 @@
-package de.butterfly.butterflyApi.menumanager
+package de.butterfly.menumanager
 
 import org.bukkit.Material
 import org.bukkit.inventory.ItemStack
-import de.butterfly.butterflyApi.items.ItemBuilder
+import de.butterfly.items.ItemBuilder
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 
@@ -51,7 +51,7 @@ abstract class PaginatedMenu(override var playerMenuUtility: PlayerMenuUtility?)
 
     private fun makeItem(material: Material, name: Component): ItemStack {
         return ItemBuilder(material)
-            .setDisplayName(name.toString())
+            .setDisplayName(name)
             .build()
     }
 }

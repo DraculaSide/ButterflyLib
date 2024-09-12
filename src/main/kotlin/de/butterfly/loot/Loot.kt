@@ -1,6 +1,8 @@
-package de.butterfly.butterflyApi.loot
+package de.butterfly.loot
 
-import de.butterfly.butterflyApi.items.ItemBuilder
+import de.butterfly.items.ItemBuilder
+import net.kyori.adventure.text.Component
+import net.kyori.adventure.text.format.NamedTextColor
 import org.bukkit.Material
 import org.bukkit.enchantments.Enchantment
 import org.bukkit.inventory.ItemFlag
@@ -13,16 +15,16 @@ class Loot(
 
     constructor(
         mat: Material,
-        name: String,
+        name: Component,
         percentage: Double,
         enchantment: Enchantment,
         itemFlag: ItemFlag,
-        lore  : Array<String> = arrayOf()
+        lore: List<Component> = listOf()
     ) : this(
         item = ItemBuilder(mat)
             .setDisplayName(name)
             .addFlag(itemFlag)
-            .setLore(*lore)
+            .setLore(lore)
             .addEnchantment(enchantment, 1, true)
             .build(),
         percentage = percentage
@@ -36,11 +38,14 @@ class Loot(
         fun getDefaultLoot(): Loot {
             return Loot(
                 Material.DIRT,
-                "Default",
+                Component.text("Default Loot", NamedTextColor.GOLD),
                 10.0,
-                Enchantment.LOOT_BONUS_BLOCKS,
+                Enchantment.WIND_BURST,
                 ItemFlag.HIDE_ENCHANTS,
-                "This is a default dirt"
+                listOf(
+                    Component.text("This is a default loot", NamedTextColor.GRAY)
+                )
+
             )
         }
     }

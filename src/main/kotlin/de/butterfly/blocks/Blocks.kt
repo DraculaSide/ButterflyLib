@@ -1,4 +1,4 @@
-package de.butterfly.butterflyApi.blocks
+package de.butterfly.blocks
 
 import org.bukkit.Location
 import org.bukkit.Material

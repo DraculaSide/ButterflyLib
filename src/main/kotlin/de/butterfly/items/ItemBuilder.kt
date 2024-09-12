@@ -1,5 +1,6 @@
-package de.butterfly.butterflyApi.items
+package de.butterfly.items
 
+import net.kyori.adventure.text.Component
 import org.bukkit.Material
 import org.bukkit.enchantments.Enchantment
 import org.bukkit.inventory.ItemFlag
@@ -12,7 +13,7 @@ import java.util.*
  */
 class ItemBuilder @JvmOverloads constructor(mat: Material, sh: Short = 0.toShort()) {
     private val itemStack = ItemStack(mat)
-    private val meta: ItemMeta? = itemStack.itemMeta
+    private val meta: ItemMeta = itemStack.itemMeta
 
     /**
      * Sets the display name of the item.
@@ -20,8 +21,8 @@ class ItemBuilder @JvmOverloads constructor(mat: Material, sh: Short = 0.toShort
      * @param name the display name
      * @return the current ItemBuilder instance for method chaining
      */
-    fun setDisplayName(name: String): ItemBuilder {
-        meta!!.displayName(name)
+    fun setDisplayName(name:Component): ItemBuilder {
+        meta.displayName(name)
         return this
     }
 
@@ -31,8 +32,8 @@ class ItemBuilder @JvmOverloads constructor(mat: Material, sh: Short = 0.toShort
      * @param lore the lore lines
      * @return the current ItemBuilder instance for method chaining
      */
-    fun setLore(vararg lore: Array<String>): ItemBuilder {
-        meta?.lore(Arrays.asList(*lore))
+    fun setLore(vararg lore: List<Component>): ItemBuilder {
+        meta.lore()
         return this
     }
 
@@ -43,7 +44,7 @@ class ItemBuilder @JvmOverloads constructor(mat: Material, sh: Short = 0.toShort
      * @return the current ItemBuilder instance for method chaining
      */
     fun setModelData(modelData: Int): ItemBuilder {
-        meta?.setCustomModelData(modelData)
+        meta.setCustomModelData(modelData)
         return this
     }
 
@@ -75,11 +76,7 @@ class ItemBuilder @JvmOverloads constructor(mat: Material, sh: Short = 0.toShort
      * @param durability the durability value
      * @return the current ItemBuilder instance for method chaining
      */
-    fun setDurability(durability: Int): ItemBuilder {
-        // Note: Deprecated method 'itemStack.durability' can be replaced with more specific usage based on item type.
-        itemStack.setDurability(durability.toShort())
-        return this
-    }
+
 
     /**
      * Adds an enchantment to the item.

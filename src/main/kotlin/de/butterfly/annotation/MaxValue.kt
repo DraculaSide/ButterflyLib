@@ -1,4 +1,4 @@
 package de.butterfly.annotation
-@Target(AnnotationTarget.VALUE_PARAMETER)
+@Target( AnnotationTarget.PROPERTY)
 @Retention(AnnotationRetention.RUNTIME)
-annotation class MaxValue()
+annotation class MaxValue(val max: Int)
