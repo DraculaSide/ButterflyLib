@@ -1,12 +1,11 @@
 package de.butterfly.skill
 
-import de.butterfly.annotation.MaxValue
+
 import de.butterfly.annotation.SkillInformation
 import org.bukkit.Bukkit
 import org.bukkit.event.Listener
 import org.bukkit.plugin.Plugin
-import kotlin.reflect.full.findAnnotation
-import kotlin.reflect.full.memberProperties
+
 
 /**
  * SkillManager is responsible for managing skill classes within the plugin.
@@ -14,12 +13,12 @@ import kotlin.reflect.full.memberProperties
  *
  * @param plugin The plugin instance associated with this SkillManager.
  */
-class SkillManager(plugin:Plugin) {
+class  SkillManager(private val plugin:Plugin) {
     /**
      * Represents the plugin instance used within the SkillManager class.
      * This instance is required to register events and access plugin-specific functionality.
      */
-    var plugin: Plugin = plugin
+
     /**
      * A mutable list that stores classes of skills.
      * Skills are added to this list by the [registerSkill] function
@@ -34,7 +33,7 @@ class SkillManager(plugin:Plugin) {
      * @param skill An object representing the skill to be registered. It should have
      * an associated @SkillInformation annotation to be successfully registered.
      */
-    fun registerSkill(skill: Any) {
+    fun registerSkill(skill: ISkill) {
         val skillClass = skill::class.java
         if (skillClass.isAnnotationPresent(SkillInformation::class.java)) {
             skills.add(skillClass)
@@ -60,12 +59,16 @@ class SkillManager(plugin:Plugin) {
 
         val  annotation = skillClass.getAnnotation(SkillInformation::class.java)
         return if (annotation != null){
-            "Skill Name: ${annotation.name}, Description: ${annotation.description}, ID: ${annotation.id}"
+            "Skill Name: ${annotation.name}, Description: ${annotation.description}, ID: ${annotation.id},Condition: ${annotation.skillLearnCondition}"
         } else {
             "No Skillinformation found for class: ${skillClass.simpleName}"
 
         }
 
 
+    }
+    fun canFuse(skillClass: Class<*>): Boolean {
+        val skillInfo = skillClass.getAnnotation(SkillInformation::class.java)
+        return skillInfo?.canFuse ?: false
     }
 }

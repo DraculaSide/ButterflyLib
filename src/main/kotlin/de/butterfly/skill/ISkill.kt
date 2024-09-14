@@ -1,16 +1,16 @@
 package de.butterfly.skill
 
-/**
- * Represents a skill with a name, description, and unique identifier.
- *
- * @property name The name of the skill.
- * @property description A brief description of the skill.
- * @property id A unique identifier for the skill.
- */
+interface ISkill {
 
-data class Skill(
-    val name: String,
-    val description: String,
-    val id: Int,
+    val learnCondition: SkillLearnCondition?
+        get() = null  // Default is null for flexibility
 
-)
+    fun execute(skill: Skill) {
+        // Default implementation can be provided if needed
+    }
+
+    fun canLearn(skill: Skill): Boolean {
+        // Use the learnCondition if available, otherwise default to true
+        return learnCondition?.canLearn(skill) ?: true
+    }
+}
