@@ -1,8 +1,8 @@
 package de.butterfly.loot
-
+@Suppress("unused")
 class LootTable {
-    val lootTable = mutableListOf<Loot>()
-    val percentage = lootTable.sumOf { it.percentage }
+   private val lootTable = mutableListOf<Loot>()
+    private val percentage = lootTable.sumOf { it.percentage }
     /*
     LootTable
     persantage >= or == 100

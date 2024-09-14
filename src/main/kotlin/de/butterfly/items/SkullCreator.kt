@@ -5,7 +5,7 @@ import org.bukkit.Material
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.SkullMeta
 import java.util.UUID
-
+@Suppress("unused")
 class SkullCreator {
 
     fun createSkullByUUID(id: UUID): ItemStack {

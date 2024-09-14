@@ -6,18 +6,17 @@ import org.bukkit.block.Block
 import org.bukkit.block.data.BlockData
 import org.bukkit.block.data.Directional
 import org.bukkit.block.data.type.Sapling
-import org.bukkit.entity.Player
 
+@Suppress("unused")
 class Blocks {
 
     /**
      * Converts the given block to a specified material while preserving directional data.
      *
      * @param block the block to be converted
-     * @param player the player performing the conversion
      * @param material the new material for the block
      */
-     fun convertToBlocks(block: Block, player: Player, material: Material) {
+     fun convertToBlocks(block: Block,  material: Material) {
         // Retrieve the current block data
         val originalData = block.blockData
 
@@ -39,9 +38,8 @@ class Blocks {
      * Spawns a sapling of the specified type at the given location.
      *
      * @param location The location where the sapling should be spawned.
-     * @param type The type of material representing the sapling.
      */
-    fun spawnSapling(location: Location, type: Material) {
+    fun spawnSapling(location: Location) {
         val world = location.world
         val sapling = world?.getBlockAt(location)?.blockData as? Sapling
         if (sapling != null) {

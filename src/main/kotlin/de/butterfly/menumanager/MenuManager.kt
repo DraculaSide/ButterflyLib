@@ -9,12 +9,12 @@ import org.bukkit.inventory.Inventory
 import org.bukkit.inventory.InventoryHolder
 import org.bukkit.inventory.ItemStack
 import net.kyori.adventure.text.Component
-
+@Suppress("unused")
 abstract class MenuManager(playerMenu: PlayerMenuUtility?) : InventoryHolder {
 
-    protected open var playerMenuUtility: PlayerMenuUtility? = null
+    open var playerMenuUtility: PlayerMenuUtility? = null
     protected var inventory: Inventory? = null
-    protected val FILLER_GLASS: ItemStack = createFillerItem(Material.WHITE_STAINED_GLASS)
+    protected val fillerItem: ItemStack = createFillerItem(Material.WHITE_STAINED_GLASS)
 
 
     init {
@@ -61,9 +61,8 @@ abstract class MenuManager(playerMenu: PlayerMenuUtility?) : InventoryHolder {
      * @param material Material to use as the filler, must not be null.
      */
     fun setFillerMaterial(material: Material) {
-        requireNotNull(material) { "Material must not be null" }
 
-       val item = createFillerItem(material)
+        val item = createFillerItem(material)
         for (i in 0 until slots) {
             if (inventory!!.getItem(i) == null) {
                 inventory!!.setItem(i, item)
@@ -74,11 +73,9 @@ abstract class MenuManager(playerMenu: PlayerMenuUtility?) : InventoryHolder {
     /**
      * Helper method to create an ItemStack
      * @param material Material to use
-     * @param displayName Display name for the item
-     * @param lore Lore for the item
      * @return Configured ItemStack
      */
-    protected fun createFillerItem(material: Material): ItemStack {
+    private fun createFillerItem(material: Material): ItemStack {
         return ItemBuilder(material)
             .setDisplayName(Component.text(" "))
             .build()

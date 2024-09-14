@@ -5,7 +5,7 @@ import org.bukkit.inventory.ItemStack
 import de.butterfly.items.ItemBuilder
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
-
+@Suppress("unused")
 abstract class PaginatedMenu(override var playerMenuUtility: PlayerMenuUtility?) : MenuManager(playerMenuUtility) {
 
     // Keep track of what page the menu is on
@@ -13,7 +13,7 @@ abstract class PaginatedMenu(override var playerMenuUtility: PlayerMenuUtility?)
 
     // 28 is max items because with the border set below,
     // 28 empty slots are remaining.
-    protected val maxItemsPerPage: Int = 28
+    private val maxItemsPerPage: Int = 28
 
     // The index represents the index of the slot
     // that the loop is on
@@ -27,20 +27,20 @@ abstract class PaginatedMenu(override var playerMenuUtility: PlayerMenuUtility?)
 
         for (i in 0 until 10) {
             if (inventory?.getItem(i) == null) {
-                inventory?.setItem(i, super.FILLER_GLASS)
+                inventory?.setItem(i, super.fillerItem)
             }
         }
 
-        inventory?.setItem(17, super.FILLER_GLASS)
-        inventory?.setItem(18, super.FILLER_GLASS)
-        inventory?.setItem(26, super.FILLER_GLASS)
-        inventory?.setItem(27, super.FILLER_GLASS)
-        inventory?.setItem(35, super.FILLER_GLASS)
-        inventory?.setItem(36, super.FILLER_GLASS)
+        inventory?.setItem(17, super.fillerItem)
+        inventory?.setItem(18, super.fillerItem)
+        inventory?.setItem(26, super.fillerItem)
+        inventory?.setItem(27, super.fillerItem)
+        inventory?.setItem(35, super.fillerItem)
+        inventory?.setItem(36, super.fillerItem)
 
         for (i in 44 until 54) {
             if (inventory?.getItem(i) == null) {
-                inventory?.setItem(i, super.FILLER_GLASS)
+                inventory?.setItem(i, super.fillerItem)
             }
         }
     }

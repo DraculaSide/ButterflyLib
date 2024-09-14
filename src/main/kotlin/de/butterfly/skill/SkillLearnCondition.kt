@@ -1,5 +1,5 @@
 package de.butterfly.skill
-
+@Suppress("unused")
 enum class SkillLearnCondition {
 
     LEVEL{
@@ -26,7 +26,7 @@ enum class SkillLearnCondition {
         }
     },
     TRAINING{
-        public override fun canLearn(skill: Skill): Boolean {
+         override fun canLearn(skill: Skill): Boolean {
             return true
         }
     };

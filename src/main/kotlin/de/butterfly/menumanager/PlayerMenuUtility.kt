@@ -14,23 +14,12 @@ class PlayerMenuUtility(player: Player) {
     /**
      * Utility class for managing player menus.
      */
-    val owner: Player
+    val owner: Player = player
 
-    /**
-     * Constructor to create a PlayerMenuUtility for a specific player.
-     *
-     * @param player the player who owns the menu, must not be null
-     * @throws IllegalArgumentException if the player is null
-     */
-    init {
-        requireNotNull(player) { "Player cannot be null" }
-        this.owner = player
-    }
-
-    override fun equals(o: Any?): Boolean {
-        if (this === o) return true
-        if (o == null || javaClass != javaClass) return false
-        val that = o as PlayerMenuUtility
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other == null || javaClass != javaClass) return false
+        val that = other as PlayerMenuUtility
         return owner == that.owner
     }
 

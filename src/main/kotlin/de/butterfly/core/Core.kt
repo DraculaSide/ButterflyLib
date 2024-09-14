@@ -1,7 +1,7 @@
 package de.butterfly.core
 
 import org.bukkit.plugin.java.JavaPlugin
-
+@Suppress("unused")
 class Core : JavaPlugin() {
 
     override fun onEnable() {

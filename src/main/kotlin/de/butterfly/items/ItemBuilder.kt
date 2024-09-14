@@ -6,12 +6,12 @@ import org.bukkit.enchantments.Enchantment
 import org.bukkit.inventory.ItemFlag
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.ItemMeta
-import java.util.*
+
 
 /**
  * A builder class to create and configure [ItemStack] instances.
  */
-class ItemBuilder @JvmOverloads constructor(mat: Material, sh: Short = 0.toShort()) {
+class ItemBuilder (mat: Material) {
     private val itemStack = ItemStack(mat)
     private val meta: ItemMeta = itemStack.itemMeta
 
@@ -32,6 +32,7 @@ class ItemBuilder @JvmOverloads constructor(mat: Material, sh: Short = 0.toShort
      * @param lore the lore lines
      * @return the current ItemBuilder instance for method chaining
      */
+    @Suppress("unused")
     fun setLore(vararg lore: List<Component>): ItemBuilder {
         meta.lore()
         return this
@@ -43,6 +44,7 @@ class ItemBuilder @JvmOverloads constructor(mat: Material, sh: Short = 0.toShort
      * @param modelData the model data value
      * @return the current ItemBuilder instance for method chaining
      */
+    @Suppress("unused")
     fun setModelData(modelData: Int): ItemBuilder {
         meta.setCustomModelData(modelData)
         return this
@@ -54,6 +56,7 @@ class ItemBuilder @JvmOverloads constructor(mat: Material, sh: Short = 0.toShort
      * @param amount the amount
      * @return the current ItemBuilder instance for method chaining
      */
+    @Suppress("unused")
     fun setAmount(amount: Int): ItemBuilder {
         itemStack.amount = amount
         return this
@@ -62,20 +65,15 @@ class ItemBuilder @JvmOverloads constructor(mat: Material, sh: Short = 0.toShort
     /**
      * Adds an item flag to the item.
      *
-     * @param flag the item flag to add
+     * @param flags the item flag to add
      * @return the current ItemBuilder instance for method chaining
      */
     fun addFlag(vararg flags: ItemFlag): ItemBuilder {
-        meta?.addItemFlags(*flags)
+        meta.addItemFlags(*flags)
         return this
     }
 
-    /**
-     * Sets the durability for the item.
-     *
-     * @param durability the durability value
-     * @return the current ItemBuilder instance for method chaining
-     */
+
 
 
     /**
@@ -87,7 +85,7 @@ class ItemBuilder @JvmOverloads constructor(mat: Material, sh: Short = 0.toShort
      * @return the current ItemBuilder instance for method chaining
      */
     fun addEnchantment(enchantment: Enchantment, level: Int, ignoreLevelRestriction: Boolean): ItemBuilder {
-        meta?.addEnchant(enchantment, level, ignoreLevelRestriction)
+        meta.addEnchant(enchantment, level, ignoreLevelRestriction)
         return this
     }
 

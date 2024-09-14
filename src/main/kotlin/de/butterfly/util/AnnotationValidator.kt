@@ -4,7 +4,7 @@ import de.butterfly.annotation.MaxValue
 import kotlin.reflect.full.findAnnotation
 import kotlin.reflect.full.memberProperties
 
-
+@Suppress("unused")
 object AnnotationValidator {
     fun validateMaxValue(obj: Any):List<String> {
         val errors = mutableListOf<String>()

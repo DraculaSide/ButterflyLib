@@ -2,7 +2,7 @@ package de.butterfly.player
 
 
 
-import de.butterfly.annotation.MaxValue
+
 import org.bukkit.Material
 import org.bukkit.entity.Player
 import org.bukkit.util.Vector
@@ -12,6 +12,7 @@ import org.bukkit.util.Vector
     /**
      * Utility class for player events.
      */
+    @Suppress("unused")
     class PlayerEventUtil {
 
         val test: Int = 0
@@ -21,7 +22,7 @@ import org.bukkit.util.Vector
          * @param player the player to check
          * @return true if the player is in water, false otherwise
          */
-        fun isInWater(player: Player): Boolean {
+        private fun Player.isInWater(player: Player): Boolean {
             val blockAtFeet = player.location.block
             val blockAtHead = player.location.add(0.0, 1.0, 0.0).block
 
@@ -34,7 +35,7 @@ import org.bukkit.util.Vector
          * @param player the player to check
          * @return true if the player is in lava, false otherwise
          */
-        fun isInLava(player: Player): Boolean {
+        private fun Player.isInLava(player: Player): Boolean {
             val blockAtFeet = player.location.block
             val blockAtHead = player.location.add(0.0, 1.0, 0.0).block
 
@@ -55,9 +56,7 @@ import org.bukkit.util.Vector
                 player.velocity = newVelocity
             }
         }
-        fun Player.isInWater(): Boolean {
-            return isInWater(this)
-        }
+
 
         /**
          * Extension function to check if the player is in lava.

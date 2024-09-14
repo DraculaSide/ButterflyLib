@@ -7,9 +7,9 @@ import org.bukkit.Material
 import org.bukkit.enchantments.Enchantment
 import org.bukkit.inventory.ItemFlag
 import org.bukkit.inventory.ItemStack
-
+@Suppress("unused")
 class Loot(
-    val item: ItemStack,
+    private val item: ItemStack,
     val percentage: Double
 ) {
 

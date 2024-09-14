@@ -13,9 +13,10 @@ import org.bukkit.event.HandlerList
  * @property block the block on which the player jumps.
  * @property location the location where the jump occurs.
  */
-class JumpEvent(val player: Player, val block:Block, val location: Location) : Event() {
+@Suppress("unused")
+class JumpEvent(private val player: Player, private val block:Block, private val location: Location) : Event() {
     override fun getHandlers(): HandlerList {
-       return HANDLER;
+       return HANDLER
     }
    // private var player: Player = Player()
     companion object {
@@ -23,7 +24,7 @@ class JumpEvent(val player: Player, val block:Block, val location: Location) : E
         val HANDLER = HandlerList()
        fun getHandlerList(): HandlerList {
 
-           return HANDLER;
+           return HANDLER
        }
     }
 

@@ -13,7 +13,9 @@ import org.bukkit.plugin.Plugin
  *
  * @param plugin The plugin instance associated with this SkillManager.
  */
-class  SkillManager(private val plugin:Plugin) {
+
+@Suppress("unused")
+class SkillManager(private val plugin:Plugin) {
     /**
      * Represents the plugin instance used within the SkillManager class.
      * This instance is required to register events and access plugin-specific functionality.
@@ -24,7 +26,7 @@ class  SkillManager(private val plugin:Plugin) {
      * Skills are added to this list by the [registerSkill] function
      * if they have the `@SkillInformation` annotation.
      */
-    val skills= mutableListOf<Class<*>>()
+    private val skills= mutableListOf<Class<*>>()
     /**
      * Registers a skill with the system, adding it to the list of skills if it has
      * the @SkillInformation annotation. Additionally, if the skill is an instance
@@ -33,7 +35,7 @@ class  SkillManager(private val plugin:Plugin) {
      * @param skill An object representing the skill to be registered. It should have
      * an associated @SkillInformation annotation to be successfully registered.
      */
-    fun registerSkill(skill: ISkill) {
+    private fun registerSkill(skill: ISkill) {
         val skillClass = skill::class.java
         if (skillClass.isAnnotationPresent(SkillInformation::class.java)) {
             skills.add(skillClass)
@@ -55,6 +57,7 @@ class  SkillManager(private val plugin:Plugin) {
      * @param skillClass The class from which to retrieve the skill information.
      * @return A string containing the skill name, description, and ID, or a message indicating that no skill information was found.
      */
+    @Suppress("unused")
     fun getSkillInfo(skillClass:Class<*>):String {
 
         val  annotation = skillClass.getAnnotation(SkillInformation::class.java)
@@ -67,6 +70,7 @@ class  SkillManager(private val plugin:Plugin) {
 
 
     }
+    @Suppress("unused")
     fun canFuse(skillClass: Class<*>): Boolean {
         val skillInfo = skillClass.getAnnotation(SkillInformation::class.java)
         return skillInfo?.canFuse ?: false
