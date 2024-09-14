@@ -12,5 +12,5 @@ data class Skill(
     val name: String,
     val description: String,
     val id: Int,
-    val learnCodition: LearnCodition
+    val learnCodition: SkillLearnCondition
 )
