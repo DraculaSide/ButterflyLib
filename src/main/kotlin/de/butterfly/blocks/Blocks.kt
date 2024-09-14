@@ -3,6 +3,7 @@ package de.butterfly.blocks
 import org.bukkit.Location
 import org.bukkit.Material
 import org.bukkit.block.Block
+import org.bukkit.block.data.BlockData
 import org.bukkit.block.data.Directional
 import org.bukkit.block.data.type.Sapling
 import org.bukkit.entity.Player
@@ -34,11 +35,29 @@ class Blocks {
         }
     }
 
+    /**
+     * Spawns a sapling of the specified type at the given location.
+     *
+     * @param location The location where the sapling should be spawned.
+     * @param type The type of material representing the sapling.
+     */
     fun spawnSapling(location: Location, type: Material) {
         val world = location.world
         val sapling = world?.getBlockAt(location)?.blockData as? Sapling
         if (sapling != null) {
             world.setBlockData(location, sapling)
+        }
+    }
+    /**
+     * Checks if a block matches the given type and updates its state if matched.
+     *
+     * @param block the block to check and update
+     * @param checkType the type to check for
+     * @param newState the new state to set if the block matches
+     */
+    fun checkAndUpdateBlockState(block: Block, checkType: Material, newState: BlockData) {
+        if (block.type == checkType) {
+            block.blockData = newState
         }
     }
 }

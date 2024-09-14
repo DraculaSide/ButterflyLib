@@ -63,7 +63,7 @@ abstract class MenuManager(playerMenu: PlayerMenuUtility?) : InventoryHolder {
     fun setFillerMaterial(material: Material) {
         requireNotNull(material) { "Material must not be null" }
 
-        val item = ItemBuilder(material).setDisplayName(Component.text(" ")).build()
+       val item = createFillerItem(material)
         for (i in 0 until slots) {
             if (inventory!!.getItem(i) == null) {
                 inventory!!.setItem(i, item)
