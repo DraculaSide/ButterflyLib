@@ -13,7 +13,7 @@ import org.bukkit.util.Vector
      * Utility class for player events.
      */
     class PlayerEventUtil {
-        @MaxValue(100)
+
         val test: Int = 0
         /**
          * Checks if the player is in water.
@@ -54,5 +54,15 @@ import org.bukkit.util.Vector
                 val newVelocity = oldVelocity.multiply(factor)
                 player.velocity = newVelocity
             }
+        }
+        fun Player.isInWater(): Boolean {
+            return isInWater(this)
+        }
+
+        /**
+         * Extension function to check if the player is in lava.
+         */
+        fun Player.isInLava(): Boolean {
+            return isInLava(this)
         }
     }
