@@ -1,4 +1,4 @@
-   package de.butterfly.skill
+   package de.butterfly.util
 
    import kotlinx.serialization.KSerializer
    import kotlinx.serialization.descriptors.PrimitiveKind

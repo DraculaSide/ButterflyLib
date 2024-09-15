@@ -1,6 +1,6 @@
 package de.butterfly.player
 
-import de.butterfly.skill.UUIDSerializer
+import de.butterfly.util.UUIDSerializer
 import kotlinx.serialization.Serializable
 import java.util.*
 
