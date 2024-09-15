@@ -1,6 +1,7 @@
 package de.butterfly.items
 
 import net.kyori.adventure.text.Component
+import net.kyori.adventure.text.format.TextColor
 import org.bukkit.Material
 import org.bukkit.enchantments.Enchantment
 import org.bukkit.inventory.ItemFlag
@@ -11,7 +12,7 @@ import org.bukkit.inventory.meta.ItemMeta
 /**
  * A builder class to create and configure [ItemStack] instances.
  */
-class ItemBuilder (mat: Material) {
+open class ItemBuilder (mat: Material) {
     private val itemStack = ItemStack(mat)
     private val meta: ItemMeta = itemStack.itemMeta
 
@@ -38,6 +39,20 @@ class ItemBuilder (mat: Material) {
         return this
     }
 
+
+    fun setLevelLore(
+        loreComponent: Component,
+        colorLevelTag: TextColor,
+        levelColor: TextColor,
+        level: Int
+    ): ItemBuilder {
+
+        val levelLoreComponent = Component.text("Level: ").color(colorLevelTag)
+            .append(Component.text(level.toString()).color(levelColor))
+        meta.lore(listOf(loreComponent, levelLoreComponent))
+        return this
+
+    }
     /**
      * Sets the custom model data for the item.
      *
@@ -94,7 +109,7 @@ class ItemBuilder (mat: Material) {
      *
      * @return the configured ItemStack
      */
-    fun build(): ItemStack {
+    open fun build(): ItemStack {
         itemStack.itemMeta = meta
         return itemStack
     }

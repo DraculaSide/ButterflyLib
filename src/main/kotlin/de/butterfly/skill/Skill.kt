@@ -1,5 +1,8 @@
 package de.butterfly.skill
 
+import de.butterfly.util.Element
+import java.lang.annotation.ElementType
+
 /**
  * Represents a skill with a name, description, and unique identifier.
  *
@@ -12,5 +15,6 @@ data class Skill(
     val name: String,
     val description: String,
     val id: Int,
-    val learnCodition: SkillLearnCondition
+    val learnCodition: SkillLearnCondition,
+    val element: Element
 )

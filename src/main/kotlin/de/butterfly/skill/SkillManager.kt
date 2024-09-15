@@ -62,7 +62,7 @@ class SkillManager(private val plugin:Plugin) {
 
         val  annotation = skillClass.getAnnotation(SkillInformation::class.java)
         return if (annotation != null){
-            "Skill Name: ${annotation.name}, Description: ${annotation.description}, ID: ${annotation.id},Condition: ${annotation.skillLearnCondition}"
+            "Skill Name: ${annotation.name}, Description: ${annotation.description}, ID: ${annotation.id},Condition: ${annotation.skillLearnCondition},ElementType: ${annotation.element},Canfuse ${annotation.canFuse}"
         } else {
             "No Skillinformation found for class: ${skillClass.simpleName}"
 
