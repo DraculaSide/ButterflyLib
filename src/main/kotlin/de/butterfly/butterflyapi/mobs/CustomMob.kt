@@ -7,7 +7,7 @@ import org.bukkit.entity.EntityType
 import org.bukkit.entity.LivingEntity
 import org.bukkit.plugin.java.JavaPlugin
 import kotlin.random.Random
-
+@Suppress("unused")
 class CustomMob(
     private val name: String,
     private val health: Double,
