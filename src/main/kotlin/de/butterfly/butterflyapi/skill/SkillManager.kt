@@ -1,7 +1,7 @@
 package de.butterfly.butterflyapi.skill
 
 
-import de.butterfly.butterflyapi.annotation.SkillInformation
+
 import org.bukkit.Bukkit
 import org.bukkit.event.Listener
 import org.bukkit.plugin.Plugin
