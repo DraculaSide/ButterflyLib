@@ -1,9 +1,10 @@
 plugins {
     kotlin("jvm") version "2.0.20"
     id("com.github.johnrengelman.shadow") version "8.1.1"
+    id("maven-publish")
 }
 
-group = "de.articfox"
+group = "de.butterfly"
 version = "1.0-SNAPSHOT"
 
 repositories {
@@ -21,7 +22,6 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.1")
     implementation("org.jetbrains.kotlin:kotlin-reflect:1.8.21")
-
 }
 
 val targetJavaVersion = 21
@@ -40,4 +40,40 @@ tasks.processResources {
     filesMatching("plugin.yml") {
         expand(props)
     }
+}
+
+publishing {
+    publications {
+        create<MavenPublication>("mavenJava") {
+            from(components["java"])
+
+            // Artifact details
+            groupId = group as String
+            artifactId = "my-artifact"
+            version = version.toString()
+
+            // Add artifact sources JAR
+            artifact(tasks["sourceJar"])
+        }
+    }
+
+    repositories {
+        maven {
+            name = "nexus"
+            // Replace with your Nexus repository URL
+            url = uri("https://your-nexus-server/repository/maven-releases/")
+
+            credentials {
+                // Add your Nexus credentials
+                username = project.findProperty("nexusUsername") as String? ?: "admin"
+                password = project.findProperty("nexusPassword") as String? ?: "admin123"
+            }
+        }
+    }
+}
+
+// Task for creating source JAR
+tasks.register<Jar>("sourceJar") {
+    from(sourceSets.main.get().allSource)
+    archiveClassifier.set("sources")
 }
