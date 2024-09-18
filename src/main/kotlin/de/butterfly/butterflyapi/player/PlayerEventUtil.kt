@@ -61,7 +61,5 @@ import org.bukkit.util.Vector
         /**
          * Extension function to check if the player is in lava.
          */
-        fun Player.isInLava(): Boolean {
-            return isInLava(this)
-        }
+
     }
