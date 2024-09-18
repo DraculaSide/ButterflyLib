@@ -82,4 +82,26 @@ interface IRitual {
         }
         return null
     }
+    /**
+     * Finds and returns the location of a specific block within the ritual's shape,
+     * where the block is identified by the character `blockChar` with another block
+     * directly above it identified by the character `blockCharUp`.
+     *
+     * @param blockChar The character representing the block to locate.
+     * @param blockCharUp The character representing the block that should be directly above `blockChar`.
+     * @return `ShapePos?` indicating the position of the specified block in the ritual's shape, or null if no such block is found.
+     */
+    fun findBlockLocation(blockChar: Char, blockCharUp:Char): ShapePos? {
+        val shape = this.getShape()
+        shape.forEachIndexed { layer, layerArray ->
+            layerArray.forEachIndexed { z, row ->
+                row.forEachIndexed { x, char ->
+                    if (char == blockChar&& layer + 1 < shape.size && shape[layer + 1][z][x] == blockCharUp) {
+                        return ShapePos(x, z, layer)
+                    }
+                }
+            }
+        }
+        return null
+    }
 }
