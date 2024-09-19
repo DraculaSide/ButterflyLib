@@ -8,18 +8,11 @@ import org.bukkit.Material
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.BookMeta
 
-data class WrittenBook(
-    val author: String,
-    val title: String,
-    val pages: JsonArray,
-    val generation: BookMeta.Generation,
-    val lore: JsonArray,
-    val displayName: String?
-)
 
+@Suppress("unused")
 object WrittenBookBuilder {
 
-    fun createBookMeta(): BookMeta {
+    private fun createBookMeta(): BookMeta {
         val item = ItemStack(Material.WRITTEN_BOOK)
         return item.itemMeta as BookMeta
     }
@@ -67,7 +60,7 @@ object WrittenBookBuilder {
         return WrittenBook(author, title, pages, generation, lore, displayName)
     }
 
-    fun intToGeneration(generation: Int): BookMeta.Generation {
+    private fun intToGeneration(generation: Int): BookMeta.Generation {
         return when (generation) {
             1 -> BookMeta.Generation.COPY_OF_ORIGINAL
             2 -> BookMeta.Generation.COPY_OF_COPY

@@ -4,7 +4,7 @@
 *.iml
 *.ipr
 *.iws
-
+build.gradle.kts
 # IntelliJ
 out/
 # mpeltonen/sbt-idea plugin

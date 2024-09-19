@@ -42,38 +42,48 @@ tasks.processResources {
     }
 }
 
+// Task for creating source JAR
+val sourceJar by tasks.registering(Jar::class) {
+    from(sourceSets.main.get().allSource)
+    archiveClassifier.set("sources")
+}
+
 publishing {
     publications {
         create<MavenPublication>("mavenJava") {
-            from(components["java"])
+            // Include the shaded JAR
+            artifact(tasks.shadowJar.get()) {
+                classifier = "shaded"
+            }
+
+            // Add artifact sources JAR
+            artifact(sourceJar.get()) {
+                classifier = "sources"
+            }
 
             // Artifact details
             groupId = group as String
             artifactId = "my-artifact"
             version = version.toString()
-
-            // Add artifact sources JAR
-            artifact(tasks["sourceJar"])
         }
     }
 
     repositories {
         maven {
-            name = "nexus"
-            // Replace with your Nexus repository URL
-            url = uri("https://your-nexus-server/repository/maven-releases/")
+            if (version.toString().endsWith("-SNAPSHOT")) {
+                // Upload to snapshot repository
+                name = "snapshot"
+                url = uri("http://85.214.27.173:8081/repository/butterflyApi/")
+            } else {
+                // Upload to release repository
+                name = "release"
+                url = uri("http://85.214.27.173:8081/repository/butterflyApiBuilt/")
+            }
 
             credentials {
-                // Add your Nexus credentials
-                username = project.findProperty("nexusUsername") as String? ?: "admin"
-                password = project.findProperty("nexusPassword") as String? ?: "admin123"
+                username = project.findProperty("nexusUsername") as String? ?: "eritis"
+                password = project.findProperty("nexusPassword") as String? ?: "Developer45"
             }
         }
     }
-}
-
-// Task for creating source JAR
-tasks.register<Jar>("sourceJar") {
-    from(sourceSets.main.get().allSource)
-    archiveClassifier.set("sources")
 }
