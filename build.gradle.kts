@@ -28,6 +28,13 @@ val targetJavaVersion = 21
 kotlin {
     jvmToolchain(targetJavaVersion)
 }
+sourceSets {
+    main {
+        kotlin {
+            exclude("de/butterfly/butterflylibrary/menumanager/**")
+        }
+    }
+}
 
 tasks.build {
     dependsOn("shadowJar")
@@ -63,7 +70,7 @@ publishing {
 
             // Artifact details
             groupId = group as String
-            artifactId = "my-artifact"
+            artifactId = "butterfly-library"
             version = version.toString()
         }
     }
@@ -84,6 +91,7 @@ publishing {
                 username = project.findProperty("nexusUsername") as String? ?: "eritis"
                 password = project.findProperty("nexusPassword") as String? ?: "Developer45"
             }
+            isAllowInsecureProtocol = true
         }
     }
 }

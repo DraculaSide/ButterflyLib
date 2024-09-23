@@ -1,4 +1,4 @@
-name: butterflyapi
+name: butterflyLib
 version: '1.0-SNAPSHOT'
 main: de.butterfly.core.Core
 api-version: '1.21'
