@@ -1,16 +1,17 @@
-package de.butterfly.butterflyapi.items
+package de.butterfly.butterflylibrary.items
 
-import io.papermc.paper.command.brigadier.argument.ArgumentTypes.itemStack
+import org.bukkit.DyeColor
 import org.bukkit.Material
 import org.bukkit.block.banner.Pattern
-import org.bukkit.event.EventHandler
+import org.bukkit.block.banner.PatternType
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.BannerMeta
 
 object BannerBuilder
 {
     private lateinit var banner:ItemStack
-    fun createBasicBanner(color: BannerColor):ItemStack{
+    private lateinit var bannerMeta:BannerMeta
+    fun createBanner(color: BannerColor):ItemStack{
 
         when(color){
             BannerColor.RED -> banner = ItemStack(Material.RED_BANNER)
@@ -35,11 +36,15 @@ object BannerBuilder
         return banner
 
     }
-    private fun createBannerMeta():BannerMeta{
-        return banner.itemMeta as BannerMeta
 
 
+    fun addPattern(patternType: PatternType,dyeColor: DyeColor):BannerBuilder {
+        bannerMeta.addPattern(Pattern(dyeColor,patternType))
+        return this
     }
+    fun build():ItemStack{
 
-    fun addPatter(pattern: Pattern,)
+        banner.itemMeta = this.bannerMeta
+        return banner
+    }
 }
