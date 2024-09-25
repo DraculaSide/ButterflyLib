@@ -1,11 +1,23 @@
 package de.butterfly.butterflylibrary.skill
+
+import de.butterfly.butterflylibrary.player.PlayerData
+import org.bukkit.Bukkit
+import java.util.*
+
 @Suppress("unused")
 enum class SkillLearnCondition {
 
-    LEVEL{
+
+
+
+    LEVEL {
         // Check if the skill can be learned based on level
         override fun canLearn(skill: Skill): Boolean {
-           TODO() // Example level requirement
+
+            val player = Bukkit.getPlayer(profile.playerId)
+            val requiredLevel = skill.requiredLevel // Replace with the appropriate level check logic
+            return player.level >= requiredLevel
+
         }
     },
 
@@ -17,14 +29,7 @@ enum class SkillLearnCondition {
         }
     },
 
-    FUSION {
-        // Check if the skill can be learned via fusion
-        override fun canLearn(skill: Skill): Boolean {
-            // In your Skill.kt logic, you can use this tag in fuseWith
-            // For now, returning true for this placeholder
-            return true
-        }
-    },
+
     TRAINING{
          override fun canLearn(skill: Skill): Boolean {
             return true
@@ -33,4 +38,7 @@ enum class SkillLearnCondition {
 
 
     abstract fun canLearn(skill: Skill): Boolean
+
+    private val playerprofile: PlayerData? = null
+    private val playerId: UUID? = playerprofile?.playerId
 }

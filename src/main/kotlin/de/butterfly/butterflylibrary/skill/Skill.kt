@@ -1,5 +1,7 @@
 package de.butterfly.butterflylibrary.skill
 
+import de.butterfly.butterflylibrary.util.Element
+
 /**
  * Represents a skill with a name, description, and unique identifier.
  *
@@ -12,6 +14,8 @@ data class Skill(
     val name: String,
     val description: String,
     val id: Int,
-    val learnCodition: SkillLearnCondition,
-    val element: de.butterfly.butterflylibrary.util.Element
+    val learnCondition: SkillLearnCondition,
+    val element: Element,
+    val requiredLevel: Int
+
 )

@@ -75,4 +75,5 @@ class SkillManager(private val plugin:Plugin) {
         val skillInfo = skillClass.getAnnotation(de.butterfly.butterflylibrary.annotation.SkillInformation::class.java)
         return skillInfo?.canFuse ?: false
     }
+    //TODO() code addSkill function
 }
