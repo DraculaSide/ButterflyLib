@@ -4,6 +4,7 @@ import de.butterfly.butterflylibrary.util.ShapePos
 import org.bukkit.Location
 import org.bukkit.Material
 import org.bukkit.World
+import org.bukkit.block.BlockType
 import org.bukkit.entity.Entity
 import org.bukkit.entity.Player
 /**
@@ -25,7 +26,8 @@ interface IRitual {
      * @return a map where each key represents a character in the ritual shape and each value represents the corresponding material needed.
      *         Returns null if no ingredients are required or defined.
      */
-    fun getShapeIngredients(): Map<Char?, Material?>?
+    @Suppress("unstable_collections")
+    fun getShapeIngredients(): Map<Char?, BlockType?>?
 
     /**
      * Retrieve a 3D array representing the shape of the ritual.
