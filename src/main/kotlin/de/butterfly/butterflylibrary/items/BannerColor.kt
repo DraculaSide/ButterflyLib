@@ -16,9 +16,5 @@ enum class BannerColor {
     LIME,
     CYAN,
     LIGHTGRAY,
-    BROWN,
-
-
-
-
+    BROWN
 }
