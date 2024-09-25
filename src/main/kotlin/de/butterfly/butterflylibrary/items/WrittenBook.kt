@@ -9,4 +9,4 @@ data class WrittenBook(val author: String,
                        val pages: List<Component>,
                        val generation: BookMeta.Generation,
                        val lore: JsonArray,
-                       val displayName: String?)
+                       val displayName: Component)
