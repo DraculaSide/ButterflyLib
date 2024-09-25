@@ -1,8 +1,13 @@
 package de.butterfly.butterflylibrary.quest
 
 class QuestUtil {
-    var questID:Int = 0
-    var isQuestCompleted:Boolean = false
-    val questProgress:MutableMap<Int,Boolean> = mutableMapOf()
 
+    val questProgress:MutableMap<Int,Boolean> = mutableMapOf()
+    fun setQuestProgress(questID: Int, isQuestCompleted: Boolean) {
+        questProgress[questID] = isQuestCompleted
+    }
+
+    fun isQuestCompleted(questID: Int): Boolean {
+        return questProgress[questID] ?: false
+    }
 }
