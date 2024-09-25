@@ -1,36 +1,41 @@
 package de.butterfly.butterflylibrary.player
 
-import de.butterfly.butterflylibrary.util.UUIDSerializer
-import kotlinx.serialization.Serializable
+import com.google.gson.JsonParser
+import de.butterfly.butterflylibrary.skill.Skill
+import org.bukkit.Bukkit
+import org.bukkit.inventory.ItemStack
 import java.util.*
 
+open class PlayerProfile {
+    private var playerProfileAllowed:Boolean = false
+    private var playerId: UUID = UUID.randomUUID()
+    private var playerName: String? = Bukkit.getPlayer(playerId)?.name
+    private var health:Double = 0.0
+    private var level:Int = 0
+    private var xp:Int = 0
+    private var skills:List<Skill> = listOf()
+    //int = slot Itemstack Item
+    private var inventory:MutableMap<Int,ItemStack> = mutableMapOf()
+    open val data:PlayerData= PlayerData(playerId,health,level,xp,inventory,skills)
+    private val jsonParser = JsonParser()
+    fun isAllowed(allowed:Boolean): Boolean {
+        playerProfileAllowed = allowed
+        return playerProfileAllowed
 
+    }
+    fun extratData():PlayerData{
+        return data
+    }
+    fun exist(){
 
+    }
+    fun update(){
 
-/**
- * Data class representing a player's profile in a game.
- *
- * @property playerid The unique identifier for the player.
- * @property health The current health points of the player.
- * @property mana The current mana points of the player.
- * @property level The current level of the player.
- * @property xp The experience points accumulated by the player.
- * @property inventory A list of items currently held by the player.
- * @property effects A list of status effects currently affecting the player.
- * @property skills A list of skills the player possesses.
- */
+    }
+    fun delete(){
 
+    }
+    fun create(){
 
-@Suppress("unused")
-data class PlayerProfile(
-    @Serializable(with = UUIDSerializer::class) val playerid: UUID,
-    val health: Double,
-    val mana: Double,
-    val level: Int,
-    val xp: Int,
-    val inventory: List<String>,
-    val effects: List<String>,
-    val skills: List<String>
-)
-
-
+    }
+}
