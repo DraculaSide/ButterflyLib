@@ -19,7 +19,7 @@ import java.util.*
         /**
          * Test integer used within the PlayerUtil class.
          */
-        val test: Int = 0
+
         /**
          * Checks if the player is standing in or has their head in water.
          *
