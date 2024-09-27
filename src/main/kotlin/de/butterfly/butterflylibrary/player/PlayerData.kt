@@ -27,13 +27,13 @@ import java.util.*
 data class PlayerData(
     @Serializable(with = UUIDSerializer::class)
     val playerId: UUID,
-    val health: Double,
+    var health: Double,
  //   val mana: Double,
-    val level: Int,
-    val xp: Int,
-    val inventory: Map<Int,ItemStack>,
+    var level: Int,
+    var xp: Int,
+    var inventory: Map<Int,ItemStack>,
    // val effects: List<String>,
-    val skills: List<Skill>
+    var skills: List<Skill>
 )
 
 
