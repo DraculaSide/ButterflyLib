@@ -7,6 +7,8 @@ import org.bukkit.World
 import org.bukkit.block.BlockType
 import org.bukkit.entity.Entity
 import org.bukkit.entity.Player
+import org.bukkit.event.Event
+
 /**
  * Interface representing a ritual with various attributes and behaviors.
  * original Author @author SarahGreyWolf
@@ -27,7 +29,7 @@ interface IRitual {
      *         Returns null if no ingredients are required or defined.
      */
     @Suppress("unstable_collections")
-    fun getShapeIngredients(): Map<Char?, BlockType?>?
+    fun getShapeIngredients(): Map<Char?, Material>
 
     /**
      * Retrieve a 3D array representing the shape of the ritual.
@@ -105,5 +107,15 @@ interface IRitual {
             }
         }
         return null
+    }
+    fun setRitualType(ritualType: RitualType) {
+       lateinit var listener:RitualListener
+       var event:Event
+        when(ritualType){
+            RitualType.DROP -> listener.onPlayerDropItem(event)//link to the ritual
+            RitualType.IGNITE -> listener.onBlockIgnite(event)
+            RitualType.GROW_TREE -> listener.onTreeGrow(event)
+        }
+
     }
 }
