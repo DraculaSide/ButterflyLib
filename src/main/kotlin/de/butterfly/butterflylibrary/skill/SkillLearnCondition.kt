@@ -14,9 +14,9 @@ enum class SkillLearnCondition {
         // Check if the skill can be learned based on level
         override fun canLearn(skill: Skill): Boolean {
 
-            val player = Bukkit.getPlayer(profile.playerId)
+            val player = Bukkit.getPlayer(playerId)
             val requiredLevel = skill.requiredLevel // Replace with the appropriate level check logic
-            return player.level >= requiredLevel
+            return player!!.level >= requiredLevel
 
         }
     },
@@ -39,6 +39,6 @@ enum class SkillLearnCondition {
 
     abstract fun canLearn(skill: Skill): Boolean
 
-    private val playerprofile: PlayerData? = null
-    private val playerId: UUID? = playerprofile?.playerId
+    private val playerProfile: PlayerData? = null
+    private val playerId: UUID? = playerProfile?.playerId
 }

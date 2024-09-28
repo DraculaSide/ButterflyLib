@@ -10,6 +10,7 @@ import org.bukkit.inventory.meta.BannerMeta
 /**
  * An object responsible for the creation and customization of banners in Minecraft.
  */
+@Suppress("unused")
 object BannerBuilder
 {
     /**

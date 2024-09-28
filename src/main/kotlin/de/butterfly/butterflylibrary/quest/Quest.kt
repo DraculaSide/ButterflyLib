@@ -1,5 +1,5 @@
 package de.butterfly.butterflylibrary.quest
-
+@Suppress("unused")
 data class Quest(
     val name: String,
     val description: String,

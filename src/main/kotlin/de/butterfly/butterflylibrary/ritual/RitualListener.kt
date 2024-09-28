@@ -1,7 +1,5 @@
 package de.butterfly.butterflylibrary.ritual
 
-import de.butterfly.butterflylibrary.ritual.IRitual
-import de.butterfly.butterflylibrary.ritual.RitualType
 import de.butterfly.butterflylibrary.util.ShapePos
 import net.kyori.adventure.text.Component
 import org.bukkit.Material
@@ -13,11 +11,9 @@ import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 import org.bukkit.event.Listener
 import org.bukkit.event.block.BlockIgniteEvent
-import org.bukkit.event.entity.EntityExplodeEvent
 import org.bukkit.event.player.PlayerDropItemEvent
 import org.bukkit.event.world.StructureGrowEvent
-import org.bukkit.plugin.Plugin
-
+@Suppress("unused")
 class RitualListener() : Listener {
     private val instance = RitualManager.instance
 

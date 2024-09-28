@@ -1,7 +1,7 @@
 package de.butterfly.butterflylibrary.skill
 
 interface ISkill {
- val placeHolder: PlaceHolder<*>?
+
     val learnCondition: SkillLearnCondition?
         get() = null  // Default is null for flexibility
 @Suppress("unused")

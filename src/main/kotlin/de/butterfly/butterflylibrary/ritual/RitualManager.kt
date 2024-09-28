@@ -10,7 +10,7 @@ import org.bukkit.plugin.Plugin
  *
  * @param plugin The plugin instance associated with this RitualManager.
  */
-
+@Suppress("unused")
 class RitualManager(private val plugin: Plugin) {
 
     /**
@@ -66,7 +66,7 @@ class RitualManager(private val plugin: Plugin) {
      */
     init {
         registerRituals()
-        Companion.instance = plugin
+        instance = plugin
     }
 
     /**

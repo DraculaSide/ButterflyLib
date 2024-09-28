@@ -9,7 +9,7 @@ package de.butterfly.butterflylibrary.util
  * original Author @author SarahGreyWolf
  */
 @Suppress("unused")
-data class ShapePos(var X: Int = 0, var Z: Int = 0, var LAYER: Int = 0) {
+data class ShapePos(var x: Int = 0, var z: Int = 0, var layer: Int = 0) {
 
     /**
      * Checks if all the properties of the ShapePos instance are zero.
@@ -17,6 +17,6 @@ data class ShapePos(var X: Int = 0, var Z: Int = 0, var LAYER: Int = 0) {
      * @return true if X, Z, and LAYER are all zero; false otherwise.
      */
     fun isZero(): Boolean {
-        return X == 0 && Z == 0 && LAYER == 0
+        return x == 0 && z == 0 && layer == 0
     }
 }

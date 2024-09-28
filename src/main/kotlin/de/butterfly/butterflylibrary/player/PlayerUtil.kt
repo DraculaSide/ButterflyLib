@@ -3,11 +3,10 @@ package de.butterfly.butterflylibrary.player
 
 
 
-import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.entity.Player
 import org.bukkit.util.Vector
-import java.util.*
+
 
 
 /**
@@ -25,7 +24,7 @@ import java.util.*
          *
          * @return true if the player's feet or head are in water, false otherwise
          */
-        private fun Player.isInWater(): Boolean {
+        private fun Player.isStandingInWater(): Boolean {
             val blockAtFeet = this.location.block
             val blockAtHead = this.location.add(0.0, 1.0, 0.0).block
 
@@ -37,27 +36,15 @@ import java.util.*
          *
          * @return True if the player is standing in or has their head in lava, false otherwise.
          */
-        private fun Player.isInLava(): Boolean {
+        private fun Player.isStandingInLava(): Boolean {
 
             val blockAtFeet = this.location.block
             val blockAtHead = this.location.add(0.0, 1.0, 0.0).block
 
             return blockAtFeet.type == Material.LAVA || blockAtHead.type == Material.LAVA
         }
-       /**
-        * Retrieves the name of the player associated with the provided UUID.
-        *
-        * @param uuid The UUID of the player whose name is to be retrieved.
-        * @return The name of the player associated with the given UUID, or "null" if the player is not found.
-        */
-       private fun Player.getNameByUUID(uuid: UUID): String {
-           val player = Bukkit.getPlayer(uuid)
-           return player!!.name
-       }
-     private fun Player.getUUIDByName(name: String): UUID {
-         val player = Bukkit.getPlayer(name)
-         return player!!.uniqueId
-     }
+
+
 
         /**
          * Companion object containing utility functions related to the Player class.

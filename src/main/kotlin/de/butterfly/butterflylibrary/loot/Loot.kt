@@ -28,11 +28,10 @@ class Loot(
         level: Int = 0,
         levelRestriction: Boolean = false,
         itemLevel: Int = 0,
-        elementLore: Component = Component.text("Element Lore", NamedTextColor.BLUE),
         colorLevelTag: NamedTextColor = NamedTextColor.DARK_PURPLE,
         levelColor: NamedTextColor = NamedTextColor.LIGHT_PURPLE
     ) : this(
-        item = createItem(mat, name, enchantment, itemFlag, lore, level, levelRestriction, itemLevel, elementLore, colorLevelTag, levelColor),
+        item = createItem(mat, name, enchantment, itemFlag, lore, level, levelRestriction, itemLevel, colorLevelTag, levelColor),
         dropRate = droprate,
     )
 
@@ -46,9 +45,9 @@ class Loot(
             level: Int,
             levelRestriction: Boolean,
             itemLevel: Int,
-            elementLore: Component,
             colorLevelTag: NamedTextColor,
             levelColor: NamedTextColor
+
         ): ItemStack {
             val itemBuilder = ItemBuilder(mat)
                 .setDisplayName(name)
@@ -59,7 +58,6 @@ class Loot(
             if (itemLevel > 0) {
                 itemBuilder.setLevelLore(
                     loreComponent = Component.text("Level required: $itemLevel").color(NamedTextColor.GRAY),
-                    elementLoreComponent = elementLore,
                     colorLevelTag = colorLevelTag,
                     levelColor = levelColor,
                     level = itemLevel

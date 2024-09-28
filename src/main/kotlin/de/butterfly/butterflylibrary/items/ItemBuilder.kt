@@ -34,8 +34,8 @@ open class ItemBuilder (mat: Material) {
      * @return the current ItemBuilder instance for method chaining
      */
     @Suppress("unused")
-    fun setLore(vararg lore: List<Component>): ItemBuilder {
-        meta.lore()
+    fun setLore( lore: List<Component>): ItemBuilder {
+        meta.lore(lore)
         return this
     }
 
@@ -45,7 +45,7 @@ open class ItemBuilder (mat: Material) {
         colorLevelTag: TextColor,
         levelColor: TextColor,
         level: Int,
-        elementLoreComponent: Component
+
     ): ItemBuilder {
 
         val levelLoreComponent = Component.text("Level: ").color(colorLevelTag)

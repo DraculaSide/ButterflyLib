@@ -8,7 +8,7 @@ import org.bukkit.inventory.ItemStack
 import org.bukkit.plugin.java.JavaPlugin
 import java.io.File
 import java.util.UUID
-
+@Suppress("unused")
 open class PlayerProfile(plugin: JavaPlugin, playerName: String) {
     private var playerProfileAllowed = false
     private val playerId: UUID = Bukkit.getPlayer(playerName)!!.uniqueId

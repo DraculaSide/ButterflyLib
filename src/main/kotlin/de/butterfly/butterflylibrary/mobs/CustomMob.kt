@@ -6,7 +6,6 @@ import net.kyori.adventure.text.Component
 import org.bukkit.Location
 import org.bukkit.entity.EntityType
 import org.bukkit.entity.LivingEntity
-import org.bukkit.plugin.java.JavaPlugin
 import kotlin.random.Random
 @Suppress("unused")
 class CustomMob(
