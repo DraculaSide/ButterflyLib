@@ -108,8 +108,9 @@ interface IRitual {
         }
         return null
     }
+
     fun setRitualType(ritualType: RitualType) {
-       lateinit var listener:RitualListener
+       lateinit var listener:IRitualListener
        var event:Event
         when(ritualType){
             RitualType.DROP -> listener.onPlayerDropItem(event)//link to the ritual
