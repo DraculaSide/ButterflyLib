@@ -3,9 +3,9 @@ package de.butterfly.butterflylibrary.util
 /**
  * Represents a position in a 3D space, with X, Z coordinates and a layer.
  *
- * @property X The X coordinate.
- * @property Z The Z coordinate.
- * @property LAYER The layer which denotes the height level.
+ * @property x The X coordinate.
+ * @property z The Z coordinate.
+ * @property layer The layer which denotes the height level.
  * original Author @author SarahGreyWolf
  */
 @Suppress("unused")

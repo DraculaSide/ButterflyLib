@@ -1,122 +1,85 @@
-package de.butterfly.butterflylibrary.ritual
+package dev.sarahgreywolf.redsorcery.listeners
 
-import de.butterfly.butterflylibrary.util.ShapePos
+
 import net.kyori.adventure.text.Component
 import org.bukkit.Material
-import org.bukkit.block.Block
 import org.bukkit.block.data.type.Sapling
-import org.bukkit.entity.Entity
-import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 import org.bukkit.event.Listener
-import org.bukkit.event.block.BlockIgniteEvent
-import org.bukkit.event.player.PlayerDropItemEvent
 import org.bukkit.event.world.StructureGrowEvent
-@Suppress("unused")
-class RitualListener() : Listener {
-    private val instance = RitualManager.instance
 
-    @EventHandler(priority = EventPriority.MONITOR)
-    fun onPlayerDropItem(event: PlayerDropItemEvent) {
-        val player = event.player
-        handleRitual(player, RitualType.DROP)
-    }
-
-    @EventHandler(priority = EventPriority.MONITOR)
-    fun onBlockIgnite(event: BlockIgniteEvent) {
-        val player = event.player ?: return
-        handleRitual(player, RitualType.IGNITE)
-    }
-
-    @EventHandler(priority = EventPriority.MONITOR)
-    fun onTreeGrow(event: StructureGrowEvent) {
-        val player = event.player ?: return
-        val block = event.blocks.firstOrNull()?.block ?: return
-
+class RitualListener : Listener {
+  /*  @EventHandler(priority = EventPriority.MONITOR)
+    fun onTreeGrow(evt: StructureGrowEvent) {
+        if (evt.player == null) return
+        val activator = evt.player
+        val block = evt.blocks[0].block
         // Check if the block beneath the sapling is a Moss Block
-        val mossBlock = block.getRelative(0, -1, 0)
-        if (mossBlock.type != Material.MOSS_BLOCK) return
-
+        val moss = block.getRelative(0, -1, 0)
+        if (moss.type != Material.MOSS_BLOCK) return
         // Make sure it was a sapling that grew
         if (block.blockData !is Sapling) return
 
-        handleRitual(player, RitualType.GROW_TREE)
-    }
-
-
-
-    private fun handleRitual(player: Player, ritualType: RitualType) {
         var foundRitual = false
 
-        for (ritual in instance) {
-            if (!player.hasPermission("redsorcery.rituals.${ritual.getPermission()}")) continue
+        // Try to find the correct ritual
+        ritual@ for (ritual in plugin.getRituals()) {
+            // No point checking for that ritual if they don't have permission to use it
+            // anyway, this may get moved so we can give permission errors
+            if (!activator!!.hasPermission("redsorcery.rituals." + ritual.getPermission())) continue
 
-            val shape = ritual.getShape()
+            val shape: Array<Array<CharArray>> = ritual.getShape()
             val shapePos = ritual.findMossLocation() ?: continue
 
-            if (!checkAlignment(player.location.block, ritual, shape, shapePos)) continue
-            if (!checkRitualStructure(player.location.block, ritual, shape, shapePos)) continue
-
-            foundRitual = true
-
-            val entities: Collection<Entity> = player.location.getNearbyEntities(5.0, 5.0, 5.0)
-            val success = ritual.execute(player, player.location, player.world, entities)
-            player.sendMessage(
-                if (success)
-                    Component.text("Ritual executed successfully!")
-                else
-                    Component.text("Ritual failed to execute.")
-            )
-        }
-
-        if (!foundRitual) {
-            player.sendMessage(Component.text("No ritual found, please check the structure and try again"))
-        }
-    }
-
-    private fun checkAlignment(moss: Block, ritual: IRitual, shape: Array<Array<Array<Char>>>, shapePos: ShapePos): Boolean {
-        val layer = shape[shapePos.LAYER]
-        val z = shapePos.Z
-        val lineLengthX = layer[z].size
-
-        for (x in -(lineLengthX / 2) until (lineLengthX / 2) + 1) {
-            val letter = layer[z][x + (lineLengthX / 2)]
-            if (letter == ' ' || x == 0) continue
-            val mat = ritual.getShapeIngredients()[letter] ?: continue
-            if (moss.getRelative(x, 0, 0).type != mat) return false
-        }
-
-        val lineLengthZ = layer.size
-        for (z in -(lineLengthZ / 2) until (lineLengthZ / 2) + 1) {
-            val letter = layer[z + (lineLengthZ / 2)][shapePos.X]
-            if (letter == ' ' || z == 0) continue
-            val mat = ritual.getShapeIngredients()[letter] ?: continue
-            if (moss.getRelative(0, 0, z).type != mat) return false
-        }
-
-        return true
-    }
-
-    private fun checkRitualStructure(moss: Block, ritual: IRitual, shape: Array<Array<Array<Char>>>, shapePos: ShapePos): Boolean {
-        val bottomLayerRelative = -shapePos.LAYER
-        for (layer in shape.indices) {
-            val layerContent = shape[layer]
-            for (x in -(layerContent[shapePos.Z].size / 2) until (layerContent[shapePos.Z].size / 2) + 1) {
-                for (z in -(layerContent.size / 2) until (layerContent.size / 2) + 1) {
-                    val letter = layerContent[z + (layerContent.size / 2)][x + (layerContent[shapePos.Z].size / 2)]
-                    if (letter == ' ') continue
-                    if (x + (layerContent[shapePos.Z].size / 2) == shapePos.X &&
-                        z + (layerContent.size / 2) == shapePos.Z &&
-                        layer >= shapePos.LAYER
-                    ) continue
-                    val mat = ritual.getShapeIngredients()[letter] ?: continue
-                    if (moss.getRelative(x, layer + bottomLayerRelative, z).type != mat) return false
+            // Check if the blocks on the x and z axis with the moss block align
+            // (Quick exit to avoid checking the whole ritual if these parts aren't correct)
+            val lineLengthX = shape[shapePos.layer][shapePos.z].size
+            for (x in 0 - (lineLengthX / 2) until (lineLengthX / 2) + 1) {
+                val letter = shape[shapePos.layer][shapePos.z][x + (lineLengthX / 2)]
+                if (letter == ' ' || x == 0) continue
+                val mat = ritual.getShapeIngredients()[letter]
+                if (moss.getRelative(x, 0, 0).type != mat) continue@ritual
+            }
+            val lineLengthZ = shape[shapePos.layer].size
+            for (z in 0 - (lineLengthZ / 2) until (lineLengthZ / 2) + 1) {
+                val letter = shape[shapePos.layer][z + (lineLengthZ / 2)][shapePos.x]
+                if (letter == ' ' || z == 0) continue
+                val mat = ritual.getShapeIngredients()[letter]
+                if (moss.getRelative(0, 0, z).type != mat) continue@ritual
+            }
+            val bottomLayerRelative = -shapePos.layer
+            for (layer in shape.indices) {
+                for (x in 0 - (lineLengthX / 2) until (lineLengthX / 2) + 1) {
+                    for (z in 0 - (lineLengthZ / 2) until (lineLengthZ / 2) + 1) {
+                        val letter = shape[layer][z + (lineLengthZ / 2)][x + (lineLengthX / 2)]
+                        if (letter == ' '
+                            || (x + (lineLengthX / 2) == shapePos.x && z + (lineLengthZ / 2) == shapePos.z && layer >= shapePos.layer)
+                        ) continue
+                        val mat = ritual.getShapeIngredients()[letter]
+                        if (moss.getRelative(x, layer + bottomLayerRelative, z).type != mat) continue@ritual
+                    }
                 }
             }
+            foundRitual = true
+
+            val entities = evt.location.getNearbyEntities(
+                ((lineLengthX / 2) + 1).toDouble(),
+                ((shape.size / 2) + 1).toDouble(),
+                ((lineLengthZ / 2) + 1).toDouble()
+            )
+            val success = ritual.execute(activator, evt.location, evt.world, entities)
+            evt.isCancelled = !success
         }
-        return true
+
+        if (!foundRitual) activator.sendMessage(
+            Component.text(RedSorcery.prefix + " No ritual found, please check the structure and try again")
+        )
     }
+
+    companion object {
+        private val plugin: RedSorcery = RedSorcery.plugin
+    }
+
+   */
 }
-
-

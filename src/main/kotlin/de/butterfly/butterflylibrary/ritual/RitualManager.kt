@@ -12,53 +12,31 @@ import org.bukkit.plugin.Plugin
  */
 @Suppress("unused")
 class RitualManager(private val plugin: Plugin) {
-
-    /**
-     * Represents the plugin instance used within the RitualManager class.
-     * This instance is required to register events and access plugin-specific functionality.
-     */
-
-    /**
-     * A mutable list that stores classes of rituals.
-     * Rituals are added to this list by the [registerRitual] function
-     * if they have the `@RitualInformation` annotation.
-     */
     private val rituals = mutableListOf<Class<*>>()
 
-    /**
-     * Registers a ritual with the system, adding it to the list of rituals if it has
-     * the @RitualInformation annotation. Additionally, if the ritual is an instance
-     * of `Listener`, it registers the ritual as an event listener with the Bukkit plugin manager.
-     *
-     * @param ritual An object representing the ritual to be registered. It should have
-     * an associated @RitualInformation annotation to be successfully registered.
-     */
+
     private fun registerRitual(ritual: IRitual) {
         val ritualClass = ritual::class.java
-        if (ritualClass.isAnnotationPresent(de.butterfly.butterflylibrary.annotation.RitualInformation::class.java)) {
+        if (ritualClass.isAnnotationPresent(de.butterfly.butterflylibrary.annotation.Ritual::class.java)) {
             rituals.add(ritualClass)
-            // Add ritual class to the list if it has the @RitualInformation annotation
+            // Add ritual class to the list if it has the @Ritual annotation
             if (ritual is Listener) {
                 Bukkit.getPluginManager().registerEvents(ritual, plugin)
             }
         } else {
-            println("Failed to register ritual: ${ritualClass.simpleName}. Missing @RitualInformation annotation.")
+            println("Failed to register ritual: ${ritualClass.simpleName}. Missing @Ritual annotation.")
         }
     }
 
     /**
-     * Retrieves ritual information from the specified class if it contains the @RitualInformation annotation.
+     * Retrieves ritual information from the specified class if it contains the @Ritual annotation.
      *
      * @param ritualClass The class from which to retrieve the ritual information.
      * @return A string containing the ritual name, description, and ID, or a message indicating that no ritual information was found.
      */
     fun getRitualInfo(ritualClass: Class<*>): String {
-        val annotation = ritualClass.getAnnotation(de.butterfly.butterflylibrary.annotation.RitualInformation::class.java)
-        return if (annotation != null) {
-            "Ritual Name: ${annotation.name}, Description: ${annotation.description}"
-        } else {
-            "No RitualInformation found for class: ${ritualClass.simpleName}"
-        }
+        val annotation = ritualClass.getAnnotation(de.butterfly.butterflylibrary.annotation.Ritual::class.java)
+       return annotation.name
     }
 
     /**
@@ -67,6 +45,7 @@ class RitualManager(private val plugin: Plugin) {
     init {
         registerRituals()
         instance = plugin
+        ritualLs = rituals
     }
 
     /**
@@ -95,6 +74,7 @@ class RitualManager(private val plugin: Plugin) {
     }
 
     companion object {
+        lateinit var ritualLs : List<Class<*>>
         lateinit var instance: Plugin
 
 
