@@ -12,13 +12,17 @@ import org.bukkit.plugin.Plugin
  */
 @Suppress("unused")
 class RitualManager(private val plugin: Plugin) {
-    private val rituals = mutableListOf<Class<*>>()
+    private val rituals = mutableListOf<IRitual>()
 
-
+    /**
+     * Registers a ritual.
+     *
+     * @param ritual The ritual instance to be registered.
+     */
     private fun registerRitual(ritual: IRitual) {
         val ritualClass = ritual::class.java
         if (ritualClass.isAnnotationPresent(de.butterfly.butterflylibrary.annotation.Ritual::class.java)) {
-            rituals.add(ritualClass)
+            rituals.add(ritual)
             // Add ritual class to the list if it has the @Ritual annotation
             if (ritual is Listener) {
                 Bukkit.getPluginManager().registerEvents(ritual, plugin)
@@ -34,9 +38,9 @@ class RitualManager(private val plugin: Plugin) {
      * @param ritualClass The class from which to retrieve the ritual information.
      * @return A string containing the ritual name, description, and ID, or a message indicating that no ritual information was found.
      */
-    fun getRitualInfo(ritualClass: Class<*>): String {
+    fun getRitualInfo(ritualClass: Class<IRitual>): String {
         val annotation = ritualClass.getAnnotation(de.butterfly.butterflylibrary.annotation.Ritual::class.java)
-       return annotation.name
+        return annotation?.name ?: "No ritual information found."
     }
 
     /**
@@ -52,7 +56,7 @@ class RitualManager(private val plugin: Plugin) {
      * Registers predefined rituals.
      */
     private fun registerRituals() {
-
+        // Register predefined rituals here
     }
 
     /**
@@ -69,16 +73,12 @@ class RitualManager(private val plugin: Plugin) {
      *
      * @return The list of registered rituals.
      */
-    fun getRituals(): List<Class<*>> {
+    fun getRituals(): List<IRitual> {
         return rituals
     }
 
     companion object {
-        lateinit var ritualLs : List<Class<*>>
+        lateinit var ritualLs: List<IRitual>
         lateinit var instance: Plugin
-
-
     }
-
-
 }
